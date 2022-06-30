@@ -60,9 +60,9 @@ const db = mysql.createConnection({
   database: 'employee_crud',
 });
 
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
   res.send('hello');
-});
+}); */
 
 app.post('/register-2', (req, res) => {
   const { username } = req.body;
