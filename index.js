@@ -14,6 +14,10 @@ const db = mysql.createConnection({
   database: 'member2',
 });
 
+app.get('/', (req, res) => {
+  res.send('hello');
+});
+
 app.post('/register-2', (req, res) => {
   const { username } = req.body;
   const sql = 'insert into member2 (username) values (?)';
