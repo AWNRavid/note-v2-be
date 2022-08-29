@@ -48,7 +48,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 const members = require('./routes/members')
 
 app.use(express.json());
@@ -82,6 +82,6 @@ app.use('/', members);
   });
 }); */
 
-app.listen(port || 3001, () => {
+app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
