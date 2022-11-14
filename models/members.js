@@ -16,9 +16,9 @@ class ModelMembers {
     });
   }
 
-  static CheckUsername(username) {
-    const sql = 'select * from member where username = (?)';
-    const values = [username];
+  static CheckUsername(email) {
+    const sql = 'select * from member where email = (?)';
+    const values = [email];
 
     return new Promise((resolve, reject) => {
       db.query(sql, values, (err, result) => {
@@ -47,6 +47,20 @@ class ModelMembers {
     });
   }
 
+  static GetMember(id) {
+    const sql = 'select * from member where id = (?);';
+    const values = [id];
+    return new Promise((resolve, reject) => {
+      db.query(sql, values, (err, result) => {
+        if (err) {
+          throw err;
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
+
   static GetNote(id) {
     const sql = 'select * from note where member_id = (?);';
     const values = [id];
@@ -61,9 +75,9 @@ class ModelMembers {
     });
   }
 
-  static AddNote(content, member_id, date) {
-    const sql = 'insert into note(content,member_id,date) values(?,?,?);';
-    const values = [content, member_id, date];
+  static AddNote(content, member_id, date, color) {
+    const sql = 'insert into note(content,member_id,date, color) values(?,?,?,?);';
+    const values = [content, member_id, date, color];
     return new Promise((resolve, reject) => {
       db.query(sql, values, (err, result) => {
         if (err) {
@@ -89,9 +103,9 @@ class ModelMembers {
     });
   }
 
-  static UpdateNote(content, id) {
-    const sql = 'update note set content = (?) where id = (?);';
-    const values = [content, id];
+  static UpdateNote(content, id, color) {
+    const sql = 'update note set content = (?), color=(?) where id = (?);';
+    const values = [content,color, id];
     return new Promise((resolve, reject) => {
       db.query(sql, values, (err, result) => {
         if (err) {

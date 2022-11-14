@@ -31,6 +31,8 @@ router.post('/add-note/:userId', verifyJWT(), ControllerMembers.AddNote);
 router.delete('/delete-note/:noteId', verifyJWT(), ControllerMembers.DeleteNote);
 router.put('/update-note/:noteId', verifyJWT(), ControllerMembers.UpdateNote);
 
+router.get('/get-member/:userId', verifyJWT(), ControllerMembers.GetMember);
+
 // router.post('/register-2', ControllerMembers.Register_2);
 
 module.exports = router;

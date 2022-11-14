@@ -30,9 +30,9 @@ class ControllerMembers {
   }
 
   static Login(req, res) {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     // console.log(username, password);
-    ModelMembers.CheckUsername(username).then(async (result) => {
+    ModelMembers.CheckUsername(email).then(async (result) => {
       if (result.length) {
         console.log(result);
         if (await bcrypt.compare(password, result[0].password)) {
@@ -52,15 +52,25 @@ class ControllerMembers {
     });
   }
 
+  static GetMember(req, res) {
+    ModelMembers.GetMember(req.params.userId).then((result) => {
+      console.log(result);
+      res.status(200).json(result);
+    });
+  }
+
   static GetNote(req, res) {
     ModelMembers.GetNote(req.params.userId).then((result) => {
+      console.log(result);
       res.status(200).json(result);
     });
   }
 
   static AddNote(req, res) {
     console.log(req.body);
-    ModelMembers.AddNote(req.body.content, req.params.userId, req.body.date).then((result) => {
+    const {content, date, color} = req.body;
+    const {userId} = req.params
+    ModelMembers.AddNote(content, userId, date, color).then((result) => {
       res.status(201).json(result);
     });
   }
@@ -73,7 +83,7 @@ class ControllerMembers {
   static UpdateNote(req, res) {
     console.log(req.params.noteId);
     console.log(req.body.content);
-    ModelMembers.UpdateNote(req.body.content, req.params.noteId)
+    ModelMembers.UpdateNote(req.body.content, req.params.noteId, req.body.color)
   }
 }
 
